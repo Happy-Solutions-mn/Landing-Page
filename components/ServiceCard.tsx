@@ -1,10 +1,20 @@
+import { Button } from "@/components/ui/Button";
+
 type ServiceCardProps = {
   index: string;
   title: string;
   description: string;
+  href?: string;
+  linkLabel?: string;
 };
 
-export function ServiceCard({ index, title, description }: ServiceCardProps) {
+export function ServiceCard({
+  index,
+  title,
+  description,
+  href,
+  linkLabel = "Дэлгэрэнгүй үзэх",
+}: ServiceCardProps) {
   return (
     <article className="group relative border border-[var(--border)] bg-[var(--surface)] p-6 transition-colors hover:border-[var(--accent)] md:p-8">
       <span className="font-mono text-xs text-[var(--muted)]">{index}</span>
@@ -14,6 +24,13 @@ export function ServiceCard({ index, title, description }: ServiceCardProps) {
       <p className="mt-3 text-sm leading-relaxed text-[var(--muted)] md:text-base">
         {description}
       </p>
+      {href ? (
+        <div className="mt-6">
+          <Button href={href} variant="ghost" className="px-0" target="_blank">
+            {linkLabel}
+          </Button>
+        </div>
+      ) : null}
       <div
         className="pointer-events-none absolute right-0 top-0 h-px w-0 bg-[var(--accent)] transition-all duration-300 group-hover:w-full"
         aria-hidden
