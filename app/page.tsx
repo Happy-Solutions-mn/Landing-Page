@@ -176,7 +176,7 @@ export default function Home() {
           <div className="mx-auto max-w-6xl">
             <SectionLabel>Манай баг</SectionLabel>
             <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight md:text-4xl">
-              Бид 3 хүний бүрэлдэхүүнтэй, хурдтай бөгөөд уялдаатай ажилладаг баг.
+              Манай баг нь хурдтай бөгөөд уялдаатай ажилладаг.
             </h2>
             <div className="mt-14 grid gap-px bg-[var(--border)] md:grid-cols-3">
               {teamMembers.map((member) => (

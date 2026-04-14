@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Инновацийн шийдлүүд | Startup",
+  title: "Happy Solutions",
   description:
     "Нүүр царайн ирц, тоглоом, eSIM, чатбот, онлайн урилга, RFID тооллого — нэг дор.",
 };
