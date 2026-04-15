@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -29,8 +30,24 @@ export default function RootLayout({
     <html
       lang="mn"
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(() => {
+  try {
+    const savedTheme = localStorage.getItem("preferred-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const theme = savedTheme === "dark" || savedTheme === "light"
+      ? savedTheme
+      : (prefersDark ? "dark" : "light");
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(theme);
+  } catch {}
+})();`}
+        </Script>
+        {children}
+      </body>
     </html>
   );
 }

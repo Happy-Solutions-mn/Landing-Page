@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/Button";
+import { ContactEmailSection } from "@/components/ContactEmailSection";
 import { SectionLabel } from "@/components/SectionLabel";
 import { ServiceCard } from "@/components/ServiceCard";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 type Service = {
   title: string;
@@ -14,7 +16,7 @@ const services: Service[] = [
     title: "Нүүр царайгаар ирц бүртгэх систем",
     description:
       "Камераар хурдан, найдвартай ирц бүртгэл. Дараалал багасгаж, цаг хэмнэнэ.",
-    href: "https://irts-burtgel-web.vercel.app/",
+    // href: "https://irts-burtgel-web.vercel.app/",
     linkLabel: "Ирцийн систем үзэх",
   },
   {
@@ -42,9 +44,9 @@ const services: Service[] = [
       "Хурим, найр, төрсөн өдөр — бүх төрлийн арга хэмжээнд зориулсан дижитал урилга.",
   },
   {
-    title: "RFID ухаалаг тооллого",
+    title: "Ухаалаг тооллогын систем",
     description:
-      "Оролцогч, бараа, урсгалыг RFID-ээр нарийвчлан хянах ухаалаг тооллогын шийдэл.",
+      "Оролцогч, бараа, урсгалыг нарийвчлан хянах ухаалаг тооллогын шийдэл.",
   },
 ];
 
@@ -93,20 +95,23 @@ export default function Home() {
           <a href="#" className="font-mono text-xs font-medium tracking-[0.2em]">
             HAPPY SOLUTIONS
           </a>
-          <nav
-            className="flex items-center gap-6 font-mono text-[11px] uppercase tracking-widest text-[var(--muted)]"
-            aria-label="Гол навигаци"
-          >
-            <a href="#services" className="hover:text-foreground">
-              Үйлчилгээ
-            </a>
-            <a href="#team" className="hover:text-foreground">
-              Баг
-            </a>
-            <a href="#contact" className="hover:text-foreground">
-              Холбоо барих
-            </a>
-          </nav>
+          <div className="flex items-center gap-4">
+            <nav
+              className="flex items-center gap-6 font-mono text-[11px] uppercase tracking-widest text-[var(--muted)]"
+              aria-label="Гол навигаци"
+            >
+              <a href="#services" className="hover:text-foreground">
+                Үйлчилгээ
+              </a>
+              <a href="#team" className="hover:text-foreground">
+                Баг
+              </a>
+              <a href="#contact" className="hover:text-foreground">
+                Холбоо барих
+              </a>
+            </nav>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
@@ -202,29 +207,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section
-          id="contact"
-          className="scroll-mt-16 px-5 py-20 md:px-8 md:py-24"
-        >
-          <div className="mx-auto flex max-w-6xl flex-col gap-10 border border-[var(--border)] bg-[var(--surface)] p-8 md:flex-row md:items-center md:justify-between md:p-12">
-            <div>
-              <SectionLabel>Дараагийн алхам</SectionLabel>
-              <h2 className="mt-4 text-2xl font-semibold tracking-tight md:text-3xl">
-                Төслөө хамтран тодорхойлъё.
-              </h2>
-              <p className="mt-3 max-w-md text-[var(--muted)]">
-                И-мэйл эсвэл мессежээр холбогдож, хэрэгцээнд нийцсэн санал аваарай.
-              </p>
-            </div>
-            <Button
-              href="mailto:hello@example.com"
-              variant="primary"
-              className="shrink-0 md:px-10"
-            >
-              И-мэйл илгээх
-            </Button>
-          </div>
-        </section>
+        <ContactEmailSection />
       </main>
 
       <footer className="border-t border-[var(--border)] px-5 py-8 md:px-8">
