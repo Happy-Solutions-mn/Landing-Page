@@ -1,13 +1,8 @@
-"use client";
-
 import { Button } from "@/components/ui/Button";
 import { ContactEmailSection } from "@/components/ContactEmailSection";
 import { SectionLabel } from "@/components/SectionLabel";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import React, { useState } from "react";
-import * as THREE from "three";
-import { Canvas, useFrame } from "@react-three/fiber";
 
 type Service = {
   title: string;
@@ -26,7 +21,8 @@ const services: Service[] = [
   },
   {
     title: "MongoKart — Цагийг хөгжилтэй өнгөрүүл",
-    description: "Олон тоглогчтой тоглоомын платформ.",
+    description:
+      "Олон тоглогчтой тоглоомын платформ.",
     href: "https://v0-mongol-kart-functional-requireme.vercel.app/",
     linkLabel: "MongoKart үзэх",
   },
@@ -58,23 +54,19 @@ const teamMembers = [
   {
     name: "Э.Түвшинжаргал",
     role: "Үйл ажиллагаа",
-    description:
-      "Төслийн зохион байгуулалт, өдөр тутмын уялдаа холбоог бүтэн удирдана.",
+    description: "Төслийн зохион байгуулалт, өдөр тутмын уялдаа холбоог бүтэн удирдана.",
     tone: "bg-emerald-500/12 text-emerald-600 dark:text-emerald-400",
   },
   {
     name: "Дэвжрэх",
     role: "Хөгжүүлэгч",
-    description:
-// @ts-ignore
-      "Системийн код хөгжүүлэлт, интеграц болон техникийн шийдлийг хэрэгжүүлнэ.",
+    description: "Системийн код хөгжүүлэлт, интеграц болон техникийн шийдлийг хэрэгжүүлнэ.",
     tone: "bg-sky-500/12 text-sky-600 dark:text-sky-400",
   },
   {
     name: "Б.Алтансүх",
     role: "Шүүмжлэлт сэтгэгч",
-    description:
-      "Бүтээгдэхүүний чиглэл, стратеги болон чанарын хяналтыг хариуцна.",
+    description: "Бүтээгдэхүүний чиглэл, стратеги болон чанарын хяналтыг хариуцна.",
     tone: "bg-violet-500/12 text-violet-600 dark:text-violet-400",
   },
 ] as const;
@@ -95,93 +87,12 @@ function PersonIcon() {
   );
 }
 
-// Three.js background scene component
-function ThreeJsBackground() {
-  const toHex = (value: number) => value.toString(16).padStart(2, "0");
-  const randomInRange = (min: number, max: number) =>
-    Math.floor(Math.random() * (max - min + 1)) + min;
-  const randomToneColor = () => {
-    const palettes = [
-      // Emerald-ish
-      [randomInRange(0x10, 0x43), randomInRange(0xb9, 0xec), randomInRange(0x81, 0xb4)],
-      // Sky-ish
-      [randomInRange(0x0e, 0x41), randomInRange(0xa5, 0xd8), randomInRange(0xe9, 0xff)],
-      // Violet-ish
-      [randomInRange(0x8b, 0xbe), randomInRange(0x5c, 0x8f), randomInRange(0xf6, 0xff)],
-    ] as const;
-
-    const [r, g, b] = palettes[Math.floor(Math.random() * palettes.length)];
-    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-  };
-
-  const [shapes] = useState(() =>
-    Array.from({ length: 50 }, () => ({
-      position: [
-        (Math.random() - 0.5) * 15,
-        (Math.random() - 0.5) * 10,
-        (Math.random() - 0.5) * 10,
-      ],
-      color: randomToneColor(),
-      geometry: Math.random() < 0.5 ? "box" : "icosahedron",
-      size: Math.random() * 0.15 + 0.05,
-    }))
-  );
-
-  useFrame((state, delta) => {
-    state.scene.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.rotation.x += delta * 0.1;
-        child.rotation.y += delta * 0.05;
-        // Subtle drift
-        child.position.y += Math.sin(state.clock.elapsedTime * 0.5) * 0.0005;
-      }
-    });
-  });
-
-  return (
-    <>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} intensity={1} />
-      {shapes.map((shape, idx) => (
-        <mesh
-          key={idx}
-// @ts-ignore
-          position={shape.position}
-        >
-          {shape.geometry === "box" ? (
-            <boxGeometry args={[shape.size, shape.size, shape.size]} />
-          ) : (
-            <icosahedronGeometry args={[shape.size]} />
-          )}
-          <meshStandardMaterial
-            color={shape.color}
-            transparent
-            opacity={0.6}
-            emissive={shape.color}
-            emissiveIntensity={0.2}
-          />
-        </mesh>
-      ))}
-    </>
-  );
-}
-
 export default function Home() {
   return (
-    <div className="flex min-h-full flex-col relative overflow-hidden">
-      {/* Three.js background covering the entire page */}
-      <div className="absolute inset-0 z-[-1] opacity-[0.25] dark:opacity-[0.15]">
-        <Canvas camera={{ position: [0, 0, 8] }}>
-          <ThreeJsBackground />
-        </Canvas>
-      </div>
-
+    <div className="flex min-h-full flex-col">
       <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--background)]/85 backdrop-blur-md">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 md:h-16 md:px-8">
-          <a
-            href="#"
-            className="font-mono text-xs font-medium tracking-[0.2em]"
-          >
+          <a href="#" className="font-mono text-xs font-medium tracking-[0.2em]">
             HAPPY SOLUTIONS
           </a>
           <div className="flex items-center gap-4">
@@ -204,7 +115,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="flex-1 relative">
+      <main className="flex-1">
         <section className="relative border-b border-[var(--border)] px-5 py-20 md:px-8 md:py-28 lg:py-36">
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.2]"
@@ -222,12 +133,13 @@ export default function Home() {
               <span className="text-[var(--muted)] decoration-[var(--accent)] decoration-2 underline-offset-4">
                 тодорхойл
               </span>
-              . . . Чанар болон хүртээмж.
+              . . .
+              {/* Чанар болон хүртээмж. */}
             </h1>
             <p className="mt-8 max-w-2xl text-base leading-relaxed text-[var(--muted)] md:text-lg">
               Бид дижитал орчинд шуурхай, ойлгомжтой бүтээгдэхүүн хөгжүүлдэг.
             </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center relative z-10">
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button href="#services" variant="primary">
                 Шийдлүүдийг үзэх
               </Button>
@@ -244,10 +156,10 @@ export default function Home() {
         >
           <div className="mx-auto max-w-6xl">
             <SectionLabel>Юу хийдэг вэ</SectionLabel>
-            <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight md:text-4xl relative z-10">
+            <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight md:text-4xl">
               Зөвхөн нэг чиглэл биш — платформ бүрт зориулсан тод шийдэл.
             </h2>
-            <div className="mt-14 grid gap-px bg-[var(--border)] md:grid-cols-2 lg:grid-cols-3 relative z-10">
+            <div className="mt-14 grid gap-px bg-[var(--border)] md:grid-cols-2 lg:grid-cols-3">
               {services.map((s, i) => (
                 <ServiceCard
                   key={s.title}
@@ -268,10 +180,10 @@ export default function Home() {
         >
           <div className="mx-auto max-w-6xl">
             <SectionLabel>Манай баг</SectionLabel>
-            <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight md:text-4xl relative z-10">
+            <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight md:text-4xl">
               Манай баг нь хурдтай бөгөөд уялдаатай ажилладаг.
             </h2>
-            <div className="mt-14 grid gap-px bg-[var(--border)] md:grid-cols-3 relative z-10">
+            <div className="mt-14 grid gap-px bg-[var(--border)] md:grid-cols-3">
               {teamMembers.map((member) => (
                 <article
                   key={member.name}
@@ -285,9 +197,7 @@ export default function Home() {
                   <p className="font-mono text-xs tracking-[0.18em] text-[var(--muted)]">
                     {member.role}
                   </p>
-                  <h3 className="text-xl font-semibold tracking-tight">
-                    {member.name}
-                  </h3>
+                  <h3 className="text-xl font-semibold tracking-tight">{member.name}</h3>
                   <p className="text-sm leading-relaxed text-[var(--muted)]">
                     {member.description}
                   </p>
@@ -300,7 +210,7 @@ export default function Home() {
         <ContactEmailSection />
       </main>
 
-      <footer className="border-t border-[var(--border)] px-5 py-8 md:px-8 relative z-10">
+      <footer className="border-t border-[var(--border)] px-5 py-8 md:px-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 text-sm text-[var(--muted)] md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} · Бүх эрх хуулиар хамгаалагдсан.</p>
           <p className="font-mono text-xs tracking-wider">
