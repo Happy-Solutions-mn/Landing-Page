@@ -105,7 +105,7 @@ export function ContactEmailSection() {
               type="text"
               value={formData.name}
               onChange={(event) => updateField("name", event.target.value)}
-              placeholder="Жишээ: Бат-Оргил"
+              placeholder="Жишээ: Happy Solutions LLC-ээс"
               className="w-full border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none transition-colors placeholder:text-[var(--muted)] focus:border-[var(--accent)]"
               required
             />

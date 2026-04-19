@@ -23,7 +23,7 @@ const services: Service[] = [
     title: "MongoKart — Цагийг хөгжилтэй өнгөрүүл",
     description:
       "Олон тоглогчтой тоглоомын платформ.",
-    href: "https://v0-mongol-kart-functional-requireme.vercel.app/",
+    href: "https://mongo-cardd.vercel.app/",
     linkLabel: "MongoKart үзэх",
   },
   {
@@ -103,9 +103,9 @@ export default function Home() {
               <a href="#services" className="hover:text-foreground">
                 Үйлчилгээ
               </a>
-              <a href="#team" className="hover:text-foreground">
+              {/* <a href="#team" className="hover:text-foreground">
                 Баг
-              </a>
+              </a> */}
               <a href="#contact" className="hover:text-foreground">
                 Холбоо барих
               </a>
@@ -174,7 +174,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section
+        {/* <section
           id="team"
           className="scroll-mt-16 border-b border-[var(--border)] px-5 py-20 md:px-8 md:py-24"
         >
@@ -205,7 +205,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         <ContactEmailSection />
       </main>
