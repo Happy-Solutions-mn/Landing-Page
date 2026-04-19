@@ -18,7 +18,7 @@ const DEFAULT_FORM: FormData = {
   message: "",
 };
 
-const EMAIL_TO = "hello@example.com";
+const EMAIL_TO = "tikaking0@gmail.com";
 
 export function ContactEmailSection() {
   const [formData, setFormData] = useState<FormData>(DEFAULT_FORM);

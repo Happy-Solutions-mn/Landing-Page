@@ -15,12 +15,15 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Happy Solutions",
-  description:
-    "Нүүр царайн ирц, тоглоом, eSIM, чатбот, онлайн урилга, RFID тооллого — нэг дор.",
+  description: "Шилдэг шийдлийг санал болгоно.",
+  icons: {
+    icon: [
+      { url: "/logo/logo.png", type: "image/png" },
+    ],
+  },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
