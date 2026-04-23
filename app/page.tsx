@@ -13,13 +13,6 @@ type Service = {
 
 const services: Service[] = [
   {
-    title: "Нүүр царайгаар ирц бүртгэх систем",
-    description:
-      "Камераар хурдан, найдвартай ирц бүртгэл. Дараалал багасгаж, цаг хэмнэнэ.",
-    // href: "https://irts-burtgel-web.vercel.app/",
-    linkLabel: "Ирцийн систем үзэх",
-  },
-  {
     title: "MongoKart — Цагийг хөгжилтэй өнгөрүүл",
     description:
       "Олон тоглогчтой тоглоомын платформ.",
