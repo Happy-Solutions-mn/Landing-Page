@@ -26,7 +26,12 @@ export function ServiceCard({
       </p>
       {href ? (
         <div className="mt-6">
-          <Button href={href} variant="ghost" className="px-0" target="_blank">
+          <Button
+            href={href}
+            variant="ghost"
+            className="rounded-md border-2 border-[var(--accent)] px-3 py-2 text-[var(--accent)] transition-colors hover:border-[var(--accent-strong)]"
+            target="_blank"
+          >
             {linkLabel}
           </Button>
         </div>
