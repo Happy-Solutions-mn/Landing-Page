@@ -27,6 +27,8 @@ const inputClass =
 export function ContactEmailSection() {
   const [formData, setFormData] = useState<FormData>(DEFAULT_FORM);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   const canSubmit = useMemo(() => {
@@ -44,27 +46,56 @@ export function ContactEmailSection() {
       if (error) {
         setError("");
       }
+      if (success) {
+        setSuccess("");
+      }
     },
-    [error],
+    [error, success],
   );
 
   const handleSubmit = useCallback(
-    (event: FormEvent<HTMLFormElement>) => {
+    async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      if (!canSubmit) {
-        setError("Мэдээллээ бүрэн бөглөөд дахин оролдоно уу.");
+      if (!canSubmit || isSubmitting) {
+        if (!canSubmit) {
+          setError("Мэдээллээ бүрэн бөглөөд дахин оролдоно уу.");
+        }
         return;
       }
 
-      const subject = encodeURIComponent(formData.subject.trim());
-      const body = encodeURIComponent(
-        `Нэр: ${formData.name.trim()}\nИ-мэйл: ${formData.email.trim()}\n\n${formData.message.trim()}`,
-      );
+      setIsSubmitting(true);
+      setError("");
+      setSuccess("");
 
-      window.location.href = `mailto:${EMAIL_TO}?subject=${subject}&body=${body}`;
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            subject: formData.subject.trim(),
+            message: formData.message.trim(),
+          }),
+        });
+
+        const result = (await response.json()) as { error?: string };
+
+        if (!response.ok) {
+          setError(result.error ?? "И-мэйл илгээхэд алдаа гарлаа.");
+          return;
+        }
+
+        setFormData(DEFAULT_FORM);
+        setSuccess("Таны мессеж амжилттай илгээгдлээ. Бид удахгүй хариу өгнө.");
+      } catch {
+        setError("Сүлжээний алдаа. Дахин оролдоно уу.");
+      } finally {
+        setIsSubmitting(false);
+      }
     },
-    [canSubmit, formData],
+    [canSubmit, formData, isSubmitting],
   );
 
   const handleOpenForm = useCallback(() => {
@@ -97,7 +128,7 @@ export function ContactEmailSection() {
               <span className="text-[var(--muted)]">тодорхойлъё.</span>
             </h2>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-[var(--muted)] md:text-base">
-              И-мэйл, утас эсвэл доорх формоор шууд холбогдоно уу. Бид 24 цагийн
+              И-мэйл эсвэл доорх формоор шууд холбогдоно уу. Бид 24 цагийн
               дотор хариу өгөх болно.
             </p>
 
@@ -251,13 +282,16 @@ export function ContactEmailSection() {
                 </div>
 
                 {error ? <p className="text-sm text-red-500">{error}</p> : null}
+                {success ? (
+                  <p className="text-sm text-emerald-600">{success}</p>
+                ) : null}
 
                 <button
                   type="submit"
-                  disabled={!canSubmit}
+                  disabled={!canSubmit || isSubmitting}
                   className="shine-on-hover inline-flex w-full items-center justify-center gap-2 rounded-md bg-[var(--accent)] px-6 py-3 text-sm font-medium tracking-wide text-[var(--accent-foreground)] transition-colors hover:bg-[var(--accent-hover)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
                 >
-                  И-мэйл илгээх
+                  {isSubmitting ? "Илгээж байна..." : "И-мэйл илгээх"}
                   <ArrowRightIcon className="h-4 w-4" />
                 </button>
               </form>
