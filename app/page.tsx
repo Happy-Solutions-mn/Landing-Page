@@ -374,15 +374,15 @@ export default function Home() {
               <div>
                 <SectionLabel>Манай бүтээгдэхүүн</SectionLabel>
                 <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight md:text-5xl">
-                  Бидний бүтээсэн{" "}
+                  Бидний{" "}
                   <span className="text-[var(--muted)]">
-                    амьд ажиллаж байгаа платформууд.
+                   ажиллаж байгаа платформууд.
                   </span>
                 </h2>
               </div>
-              <p className="max-w-sm text-sm leading-relaxed text-[var(--muted)] md:text-base">
+              {/* <p className="max-w-sm text-sm leading-relaxed text-[var(--muted)] md:text-base">
                 Бидний хийсэн бүтээгдэхүүнүүдийг үзэж, туршиж болно.
-              </p>
+              </p> */}
             </div>
 
             <div className="mt-14 grid gap-px bg-[var(--border)] md:grid-cols-2">
