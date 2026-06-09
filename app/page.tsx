@@ -51,6 +51,7 @@ type Service = {
   linkLabel?: string;
   icon: ReactNode;
   tag?: string;
+  featured?: boolean;
 };
 
 const services: Service[] = [
@@ -97,8 +98,11 @@ const services: Service[] = [
     title: "Захиалгат шийдэл",
     description:
       "Танай бизнест тусгайлан зориулсан вэб болон гар утасны систем — шаардлагад нийцсэн.",
+    href: "#contact",
+    linkLabel: "Холбоо барих",
     icon: <SparkleIcon className="h-5 w-5" />,
     tag: "Бэлэн",
+    featured: true,
   },
 ];
 
@@ -433,6 +437,7 @@ export default function Home() {
                   linkLabel={s.linkLabel}
                   icon={s.icon}
                   tag={s.tag}
+                  featured={s.featured}
                 />
               ))}
             </div>

@@ -9,6 +9,7 @@ type ServiceCardProps = {
   linkLabel?: string;
   icon?: ReactNode;
   tag?: string;
+  featured?: boolean;
 };
 
 export function ServiceCard({
@@ -19,6 +20,7 @@ export function ServiceCard({
   linkLabel = "Дэлгэрэнгүй үзэх",
   icon,
   tag,
+  featured = false,
 }: ServiceCardProps) {
   const content = (
     <>
@@ -28,14 +30,26 @@ export function ServiceCard({
           {index}
         </span>
         {icon ? (
-          <span className="flex h-10 w-10 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface-2)] text-[var(--foreground)] transition-colors group-hover:border-[var(--accent)] group-hover:text-[var(--accent)]">
+          <span
+            className={
+              featured
+                ? "flex h-10 w-10 items-center justify-center rounded-md border border-[var(--accent)]/60 bg-[var(--accent)]/10 text-[var(--accent)] transition-colors"
+                : "flex h-10 w-10 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface-2)] text-[var(--foreground)] transition-colors group-hover:border-[var(--accent)] group-hover:text-[var(--accent)]"
+            }
+          >
             {icon}
           </span>
         ) : null}
       </div>
 
       {tag ? (
-        <span className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-[var(--muted)]">
+        <span
+          className={
+            featured
+              ? "mt-5 inline-flex w-fit items-center gap-1.5 rounded-full border border-[var(--accent)]/50 bg-[var(--accent)]/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-[var(--accent)]"
+              : "mt-5 inline-flex w-fit items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-[var(--muted)]"
+          }
+        >
           <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
           {tag}
         </span>
@@ -49,7 +63,13 @@ export function ServiceCard({
       </p>
 
       {href ? (
-        <div className="mt-7 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted)] transition-colors group-hover:text-[var(--accent)]">
+        <div
+          className={
+            featured
+              ? "mt-7 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--accent)] transition-colors group-hover:opacity-80"
+              : "mt-7 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted)] transition-colors group-hover:text-[var(--accent)]"
+          }
+        >
           <span>{linkLabel}</span>
           <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </div>
@@ -60,9 +80,13 @@ export function ServiceCard({
         </div>
       )}
 
-      {/* Top accent line on hover */}
+      {/* Top accent line — always visible for featured, hover-only for others */}
       <span
-        className="pointer-events-none absolute right-0 top-0 h-px w-0 bg-[var(--accent)] transition-all duration-500 group-hover:w-full"
+        className={
+          featured
+            ? "pointer-events-none absolute right-0 top-0 h-px w-full bg-[var(--accent)]"
+            : "pointer-events-none absolute right-0 top-0 h-px w-0 bg-[var(--accent)] transition-all duration-500 group-hover:w-full"
+        }
         aria-hidden
       />
       {/* Glow on hover */}
@@ -77,15 +101,17 @@ export function ServiceCard({
     </>
   );
 
-  const className =
-    "group shine-on-hover relative flex flex-col overflow-hidden border border-[var(--border)] bg-[var(--surface)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--accent)] hover:shadow-[0_0_0_1px_var(--accent-glow)] md:p-8";
+  const className = featured
+    ? "group shine-on-hover relative flex flex-col overflow-hidden border border-[var(--accent)]/40 bg-gradient-to-br from-[var(--accent)]/[0.06] to-[var(--surface)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--accent)] hover:shadow-[0_0_0_1px_var(--accent-glow)] md:p-8"
+    : "group shine-on-hover relative flex flex-col overflow-hidden border border-[var(--border)] bg-[var(--surface)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--accent)] hover:shadow-[0_0_0_1px_var(--accent-glow)] md:p-8";
+
+  const isInternal = href?.startsWith("#");
 
   if (href) {
     return (
       <a
         href={href}
-        target="_blank"
-        rel="noreferrer noopener"
+        {...(!isInternal && { target: "_blank", rel: "noreferrer noopener" })}
         className={className}
       >
         {content}
