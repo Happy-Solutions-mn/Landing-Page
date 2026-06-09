@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/Button";
 import { ContactEmailSection } from "@/components/ContactEmailSection";
 import { FAQ } from "@/components/FAQ";
 import { Marquee } from "@/components/Marquee";
+import { ProductCard } from "@/components/ProductCard";
 import { SectionLabel } from "@/components/SectionLabel";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -24,6 +25,25 @@ import {
 } from "@/components/Icons";
 import type { ReactNode } from "react";
 
+const products = [
+  {
+    title: "MongoCard",
+    description:
+      "Найзуудтайгаа онлайнаар карт тоглоом тоглоорой — Үнэн эсвэл зориг, Уу эсвэл шийтгүүл болон бусад олон тоглоом нэг платформд.",
+    href: "https://mongocard.happysolutions.ltd/",
+    screenshot: "/screenshots/mongocard.png",
+    tag: "Идэвхтэй",
+  },
+  {
+    title: "HappySim — eSIM борлуулалт",
+    description:
+      "Дэлхийн 200 гаруй улсад роамингүй холболт. QPay-р шуурхай төлж, дижитал SIM-ээ шууд идэвхжүүлэхэд бэлэн.",
+    href: "https://esim.happysolutions.ltd/",
+    screenshot: "/screenshots/happyesim.png",
+    tag: "Идэвхтэй",
+  },
+];
+
 type Service = {
   title: string;
   description: string;
@@ -38,7 +58,7 @@ const services: Service[] = [
     title: "MongoKart — Цагийг хөгжилтэй өнгөрүүл",
     description:
       "Олон тоглогчтой тоглоомын платформ — найзуудтайгаа онлайнаар уралдаан зохиогоорой.",
-    href: "https://mongo-cardd.vercel.app/",
+    href: "https://mongocard.happysolutions.ltd/",
     linkLabel: "MongoKart үзэх",
     icon: <GameIcon className="h-5 w-5" />,
     tag: "Идэвхтэй",
@@ -47,7 +67,7 @@ const services: Service[] = [
     title: "HappySim — eSIM борлуулалт",
     description:
       "Дата болон дуудлага — дижитал SIM-ээр шууд идэвхжүүлж, аялал руу бэлэн.",
-    href: "https://happy-esim.vercel.app/",
+    href: "https://esim.happysolutions.ltd/",
     linkLabel: "HappySim үзэх",
     icon: <SimIcon className="h-5 w-5" />,
     tag: "Идэвхтэй",
@@ -222,6 +242,9 @@ export default function Home() {
               className="hidden items-center gap-6 font-mono text-[11px] uppercase tracking-widest text-[var(--muted)] sm:flex"
               aria-label="Гол навигаци"
             >
+              <a href="#products" className="transition-colors hover:text-[var(--foreground)]">
+                Бүтээгдэхүүн
+              </a>
               <a href="#services" className="transition-colors hover:text-[var(--foreground)]">
                 Үйлчилгээ
               </a>
@@ -338,6 +361,42 @@ export default function Home() {
         <section className="border-b border-[var(--border)] py-2">
           <div className="mx-auto max-w-7xl">
             <Marquee items={techStack} />
+          </div>
+        </section>
+
+        {/* ---------- Products ---------- */}
+        <section
+          id="products"
+          className="scroll-mt-16 border-b border-[var(--border)] px-5 py-20 md:px-8 md:py-28"
+        >
+          <div className="mx-auto max-w-6xl">
+            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <div>
+                <SectionLabel>Манай бүтээгдэхүүн</SectionLabel>
+                <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight md:text-5xl">
+                  Бидний бүтээсэн{" "}
+                  <span className="text-[var(--muted)]">
+                    амьд ажиллаж байгаа платформууд.
+                  </span>
+                </h2>
+              </div>
+              <p className="max-w-sm text-sm leading-relaxed text-[var(--muted)] md:text-base">
+                Бидний хийсэн бүтээгдэхүүнүүдийг үзэж, туршиж болно.
+              </p>
+            </div>
+
+            <div className="mt-14 grid gap-px bg-[var(--border)] md:grid-cols-2">
+              {products.map((p) => (
+                <ProductCard
+                  key={p.title}
+                  title={p.title}
+                  description={p.description}
+                  href={p.href}
+                  screenshot={p.screenshot}
+                  tag={p.tag}
+                />
+              ))}
+            </div>
           </div>
         </section>
 
